@@ -5,7 +5,7 @@ const findById = (id) => {
 };
 
 const findByName = (name) => {
-  return Room.findOne(name);
+  return Room.findOne({ where: { name } });
 };
 
 const createRoom = async (name) => {
@@ -23,8 +23,13 @@ const createRoom = async (name) => {
 const updateRoom = async (id, name) => {
   const updatedRoom = await roomService.findById(id);
 
+  if (!updatedRoom) {
+    throw new Error('Room not found');
+  }
   updatedRoom.name = name;
   await updatedRoom.save();
+
+  return updatedRoom;
 };
 
 export const roomService = {

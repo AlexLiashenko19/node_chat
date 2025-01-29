@@ -6,4 +6,4 @@ export const messageRouter = express.Router();
 
 messageRouter.get('/:id', catchError(messageController.getMessagesByRoomId));
 
-messageRouter.post('/:id', catchError(messageController.createNewMessage));
+messageRouter.post('/', catchError(messageController.createNewMessage));

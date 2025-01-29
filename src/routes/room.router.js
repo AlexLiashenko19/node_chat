@@ -4,7 +4,7 @@ import { roomController } from '../controllers/room.controller.js';
 
 export const roomRouter = express.Router();
 
-roomRouter.get('/', catchError(roomController.getAllRoom));
+roomRouter.get('/', catchError(roomController.getAllRooms));
 roomRouter.post('/', catchError(roomController.createRoom));
 roomRouter.patch('/:id', catchError(roomController.renameRoom));
 roomRouter.delete('/:id', catchError(roomController.deleteRoom));

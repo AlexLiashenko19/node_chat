@@ -1,7 +1,7 @@
 import { Room } from '../models/room.model.js';
 import { roomService } from '../services/room.service.js';
 
-const getAllRoom = async (req, res) => {
+const getAllRooms = async (req, res) => {
   const room = await Room.findAll();
 
   res.send(room);
@@ -9,7 +9,7 @@ const getAllRoom = async (req, res) => {
 
 const createRoom = async (req, res) => {
   const { name } = req.body;
-  const newRoom = roomService.createRoom({ name });
+  const newRoom = roomService.createRoom(name);
 
   res.send(newRoom);
 };
@@ -31,7 +31,7 @@ const renameRoom = async (req, res) => {
 };
 
 export const roomController = {
-  getAllRoom,
+  getAllRooms,
   createRoom,
   deleteRoom,
   renameRoom,

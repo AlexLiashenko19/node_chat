@@ -1,7 +1,7 @@
 import { EventEmitter } from 'events';
 import { messageService } from '../services/message.service.js';
 
-const getMessagesByRoomId = async (res, req) => {
+const getMessagesByRoomId = async (req, res) => {
   const { id } = req.params;
   const message = await messageService.findAllMessagesByRoomId(id);
 

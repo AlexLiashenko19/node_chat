@@ -1,4 +1,3 @@
-'use strict';
 import express from 'express';
 import { WebSocket, WebSocketServer } from 'ws';
 import cors from 'cors';
@@ -26,15 +25,32 @@ const wss = new WebSocketServer({ server });
 wss.on('connection', (client) => {
   client.on('message', async (data) => {
     const receivedData = JSON.parse(data.toString());
-
     const newMessage = receivedData.message;
-    const createMessage = await messageController.createNewMessage(
-      newMessage.author,
-      newMessage.text,
-      newMessage.roomId,
-    );
 
-    wss.client.forEach((cl) => {
+    const req = {
+      body: {
+        author: newMessage.author,
+        text: newMessage.text,
+        roomId: newMessage.roomId,
+      },
+    };
+
+    const res = {
+      send: (response) => {
+        // eslint-disable-next-line no-console
+        console.log('Message created:', response);
+      },
+      status: (code) => {
+        // eslint-disable-next-line no-console
+        console.log('Status code:', code);
+
+        return res;
+      },
+    };
+
+    const createMessage = await messageController.createNewMessage(req, res);
+
+    wss.clients.forEach((cl) => {
       if (cl.readyState === WebSocket.OPEN) {
         cl.send(JSON.stringify(createMessage));
       }

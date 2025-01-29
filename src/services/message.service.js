@@ -3,7 +3,7 @@ import { Message } from '../models/message.model.js';
 const createMessage = async (author, text, roomId) => {
   const newMessage = await Message.create({
     author,
-    tima: new Date().toISOString(),
+    time: new Date().toISOString(),
     text,
     roomId,
   });
